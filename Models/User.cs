@@ -11,6 +11,7 @@ public class User {
     public string? Email { get; private set; }
     public bool IsCurrentTenant { get; private set; }  = true;
     public User() {}
+    public ICollection<FridgeItem> FridgeItems { get; } = [];
     public string GetUserID() {
         string json = JsonSerializer.Serialize(this.UserID);
         return json;
@@ -27,6 +28,5 @@ public class User {
         if (!string.IsNullOrWhiteSpace(newEmail))
             this.Email = newEmail;
     }
-
 }
 
