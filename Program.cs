@@ -7,10 +7,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Registers UserService for DI for /GetUsers endpoint
+builder.Services.AddScoped<UserService>();
+
 builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseNpgsql(builder.Configuration.GetConnectionString("FIWAdb")));
 
 var app = builder.Build();
+
+// UserService is injected here.
+app.MapGet("/GetUsers", async (UserService userService) => {
+    return Results.Ok(await userService.GetUsersAsync());
+});
+
 
 
 // Configure the HTTP request pipeline.
