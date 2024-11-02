@@ -17,13 +17,13 @@ public class AppDbContext : DbContext {
     /// <param name="modelBuilder"></param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     { 
-        modelBuilder.Entity<User>()
-            .HasMany(e => e.FridgeItems)
-            .WithOne(e => e.User)
-            .HasForeignKey(e => e.OwnedByUserID)
-            .HasPrincipalKey(e => e.UserID);
+        // modelBuilder.Entity<User>()
+        //     .HasMany(e => e.FridgeItems)
+        //     .WithOne(e => e.User);
+        modelBuilder.Entity<FridgeItem>()
+            .HasOne(e => e.User).WithMany(e => e.FridgeItems).HasForeignKey(e => e.OwnedByUserID);
     }
     public DbSet<User> Users { get; set; }
-    public DbSet<FridgeItem> FridgeItems {get;set;}
+    public DbSet<FridgeItem> FridgeItems { get; set; }
 
 }

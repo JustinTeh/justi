@@ -39,7 +39,7 @@ public class UserService {
             await _appDbContext.SaveChangesAsync();
             return Results.Ok("User profile updated successfully!");
         }
-        return Results.NotFound("ERROR: User not found");
+        return Results.NotFound("ERROR: User not found. Could not update.");
     }
 
     public async Task<IResult> DeleteUserAsync(int userID) {
